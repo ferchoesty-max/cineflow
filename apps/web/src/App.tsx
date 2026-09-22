@@ -1,0 +1,1 @@
+export default function App() { return <h1 className="p-10 text-4xl font-bold text-rose-400">CineFlow instalado</h1>; }
