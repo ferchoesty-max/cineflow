@@ -449,11 +449,11 @@ export default function App() {
 
 ```env
 VITE_API_URL=http://localhost:4000/api
-# Configuración WEB de Firebase:
-VITE_FIREBASE_API_KEY=AIzaSyA3wzwtQNNCULmCZmcQAIc4_gLz5BbRgic
-VITE_FIREBASE_AUTH_DOMAIN=cineflow-mars.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=cineflow-mars
-VITE_FIREBASE_APP_ID=1:491761197921:web:2882102acf4b73ce1e1b20
+# Configuración WEB de Firebase (cineflow-ferch):
+VITE_FIREBASE_API_KEY=AIzaSyCOkZQLEQFxjbBFq5orviwRF-T8Bibq9b8
+VITE_FIREBASE_AUTH_DOMAIN=cineflow-ferch.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=cineflow-ferch
+VITE_FIREBASE_APP_ID=1:1043446107079:web:2aaff46a4c200dcc2b67e2
 ```
 
 ---
@@ -465,7 +465,7 @@ PORT=4000
 CORS_ORIGIN=http://localhost:5173
 CATALOG_MODE=demo
 TMDB_READ_ACCESS_TOKEN=
-FIREBASE_PROJECT_ID=cineflow-mars
+FIREBASE_PROJECT_ID=cineflow-ferch
 ```
 
 ---
@@ -481,13 +481,13 @@ FIREBASE_PROJECT_ID=cineflow-mars
 ### Formulario de Registro e Inicio de Sesión
 ![Acceso y Registro](evidencia_registro_form_29sep.png)
 
-### Cuenta Creada y Autenticada en Firebase
+### Cuenta Creada y Autenticada en Firebase (cineflow-ferch)
 ![Cuenta Registrada](evidencia_cuenta_registrada_29sep.png)
 
 ---
 
 ## 🎬 Demostración en Video
 
-El video de evidencia con el recorrido interactivo (catálogo, créditos con nombre y NUA, formulario de acceso y registro exitoso) se encuentra disponible en:
+El video de evidencia con el recorrido interactivo (catálogo, créditos con nombre y NUA, formulario de acceso y registro exitoso en `cineflow-ferch`) se encuentra disponible en:
 - `docs/evidencia_video_29sep.mp4`
 - `docs/evidencia_video_29sep.webm`
