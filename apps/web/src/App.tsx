@@ -1,69 +1,84 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Catalog } from "./Catalog";
+import { Detail } from "./Detail";
+import { Session, useSession } from "./Session";
+import { Access } from "./Access";
 
 function Layout() {
-    return (
-        <>
-        <a href="#contenido" className="skip">
-            Saltar al contenido
-        </a>
-        <header className="wrap border-b border-slate-700">
-            <strong className="text-2xl text-rose-300">
-                CineFLOW 🎥 
-            </strong>
-            <nav className="mt-4">
-                <Link to="/">Catalogo</Link>
-                <Link to="/creditos">Creditos</Link>
-            </nav>
-        </header>
-        <main className="wrap" id="contenido">
-            <Routes>
-                <Route path="/" element={<Catalog />} />
-                <Route 
-                    path="/titulo/:type/:id"
-                    element={
-                        <p>
-                            La ficha o tarjeta la vamos a poner despues
-                            <Link to="/">Regresar</Link>
-                        </p>
-                    }
-                />
-                <Route
-                    path="/creditos"
-                    element={
-                        <section className="panel">
-                            <h1>Creditos</h1>
-                            <p>CineFLow Proyecto Educativo</p>
-                            <div>
-                                <p>Fernando Daniel Tolentino Uribe</p>
-                                <p>Licenciatura en Ingenieria en Sistemas Computacionales</p>
-                                <p>Computo en la Nube</p>
-                                <p className="muted">395108</p>
-                            </div>
-                        </section>
-                    }
-                />
-                <Route 
-                    path="*"
-                    element={
-                        <p>
-                            Pagina no encontrada. <Link to="/">Ir al inicio</Link>
-                        </p>
-                    }
-                />
-            </Routes>
-        </main>
-        <footer className="wrap muted">
-            CineFloew - Catalogo de Peliculas y Series.
-        </footer>
-        </>
-    )
+  const { profile, user } = useSession();
+  return (
+    <>
+      <a className="skip" href="#contenido">
+        Saltar al contenido
+      </a>
+      <header className="wrap border-b border-slate-700">
+        <strong className="text-2xl text-rose-300">CINEFLOW</strong>
+        <nav className="mt-4">
+          <Link to="/">Catálogo</Link>
+          <Link to="/acceso">Cuenta / Acceso</Link>
+          <Link to="/creditos">Créditos</Link>
+        </nav>
+        <p className="muted">
+          {user ? `Perfil: ${profile?.name || "sincronizando"}` : "Visitante"}
+        </p>
+      </header>
+      <main id="contenido" className="wrap">
+        <Routes>
+          <Route path="/" element={<Catalog />} />
+          <Route path="/titulo/:type/:id" element={<Detail />} />
+          <Route path="/acceso" element={<Access />} />
+          <Route
+            path="/creditos"
+            element={
+              <section className="panel">
+                <h1>Créditos</h1>
+                <p>CineFlow es un proyecto educativo de catálogo y tráilers.</p>
+                <div>
+                  <p>Fernando Daniel Tolentino Uribe</p>
+                  <p>Licenciatura en Ingeniería en Sistemas Computacionales</p>
+                  <p>Cómputo en la Nube</p>
+                  <p className="muted">395108</p>
+                </div>
+                <p className="mt-4">
+                  This product uses the TMDB API but is not endorsed or
+                  certified by TMDB.
+                </p>
+                <p>
+                  <a href="https://www.themoviedb.org/">
+                    Datos e imágenes: TMDB
+                  </a>
+                  . Reproducción: YouTube.
+                </p>
+                <p>
+                  Antes de publicar, agrega aquí el logo oficial aprobado de
+                  TMDB según su guía de atribución.
+                </p>
+              </section>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <p>
+                Página no encontrada. <Link to="/">Ir al inicio</Link>
+              </p>
+            }
+          />
+        </Routes>
+      </main>
+      <footer className="wrap muted">
+        CineFlow · Catálogo educativo y tráilers
+      </footer>
+    </>
+  );
 }
 
 export default function App() {
-    return (
-        <BrowserRouter>
-            <Layout />
-        </BrowserRouter>
-    )
+  return (
+    <BrowserRouter>
+      <Session>
+        <Layout />
+      </Session>
+    </BrowserRouter>
+  );
 }
