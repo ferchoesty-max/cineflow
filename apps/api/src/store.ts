@@ -1,18 +1,36 @@
-import { applicationDefault, getApps, initializeApp } from "firebase-admin/app";
+import { cert, getApps, initializeApp } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 import { emptyAccount, Problem, type Account } from "./model.js";
 
 function app() {
-  if (!process.env.FIREBASE_PROJECT_ID)
-    throw new Problem(503, "Configura Firebase en apps/api/.env");
-  return (
-    getApps()[0] ??
-    initializeApp({
-      credential: applicationDefault(),
-      projectId: process.env.FIREBASE_PROJECT_ID,
-    })
-  );
+  const existing = getApps()[0];
+  if (existing) return existing;
+
+  const projectId = process.env.FIREBASE_PROJECT_ID?.trim();
+  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL?.trim();
+  // Acepta saltos reales y la secuencia literal \n de los paneles de hosting.
+  const privateKey = process.env.FIREBASE_PRIVATE_KEY
+    ?.replace(/\\n/g, "\n")
+    .trim();
+  if (!projectId || !clientEmail || !privateKey)
+    throw new Problem(
+      503,
+      "Configura FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL y FIREBASE_PRIVATE_KEY en el backend",
+    );
+
+  try {
+    return initializeApp({
+      credential: cert({ projectId, clientEmail, privateKey }),
+      projectId,
+    });
+  } catch {
+    // No devolver la clave ni detalles internos de las credenciales al cliente.
+    throw new Problem(
+      503,
+      "Configuración Firebase inválida. Revisa las variables del backend.",
+    );
+  }
 }
 
 export async function verify(token: string): Promise<string> {

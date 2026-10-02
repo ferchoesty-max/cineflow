@@ -3,6 +3,7 @@ import { Catalog } from "./Catalog";
 import { Detail } from "./Detail";
 import { Session, useSession } from "./Session";
 import { Access } from "./Access";
+import { Profiles } from "./Profiles";
 
 function Layout() {
   const { profile, user } = useSession();
@@ -16,6 +17,7 @@ function Layout() {
         <nav className="mt-4">
           <Link to="/">Catálogo</Link>
           <Link to="/acceso">Cuenta / Acceso</Link>
+          <Link to="/perfiles">Perfiles</Link>
           <Link to="/creditos">Créditos</Link>
         </nav>
         <p className="muted">
@@ -27,19 +29,14 @@ function Layout() {
           <Route path="/" element={<Catalog />} />
           <Route path="/titulo/:type/:id" element={<Detail />} />
           <Route path="/acceso" element={<Access />} />
+          <Route path="/perfiles" element={<Profiles />} />
           <Route
             path="/creditos"
             element={
               <section className="panel">
                 <h1>Créditos</h1>
                 <p>CineFlow es un proyecto educativo de catálogo y tráilers.</p>
-                <div>
-                  <p>Fernando Daniel Tolentino Uribe</p>
-                  <p>Licenciatura en Ingeniería en Sistemas Computacionales</p>
-                  <p>Cómputo en la Nube</p>
-                  <p className="muted">395108</p>
-                </div>
-                <p className="mt-4">
+                <p>
                   This product uses the TMDB API but is not endorsed or
                   certified by TMDB.
                 </p>
